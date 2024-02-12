@@ -6,6 +6,6 @@
 script = ExtResource("1_ejtc5")
 id = 3
 name = "Run"
-camera_fov = 90.0
+camera_fov = 85.0
 movementSpeed = 20.0
 anmationSpeed = 1.0

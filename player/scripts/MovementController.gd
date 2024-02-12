@@ -1,5 +1,7 @@
 extends Node
 
+signal setDodgeState(dodgeState : bool)
+
 @export var player : CharacterBody3D
 @export var meshRoot : Node3D
 @export var cameraRoot : Node3D
@@ -25,8 +27,6 @@ func _ready():
 	direction = Vector3(0, 0, 1)
 	camRotationVectors = cameraYaw.global_transform.basis.z.normalized()
 
-func onSetShiftLock(shiftLockState : bool):
-	isShiftLocked = shiftLockState
 
 func _physics_process(delta):
 	camRotationVectors = cameraYaw.global_transform.basis.z.normalized()
@@ -69,8 +69,17 @@ func _physics_process(delta):
 		else:
 			isDodging = false
 			boostAmount = 0
-		
+			
+	setDodgeState.emit(isDodging)
 	meshRoot.rotation.y = lerp_angle(meshRoot.rotation.y, targetRotation, rotationSpeed * delta)
+
+
+
+func onSetShiftLock(shiftLockState : bool):
+	isShiftLocked = shiftLockState
+	direction = camRotationVectors
+	
+	
 
 func onSetIdleState(idleState : bool):
 	isIdle = idleState

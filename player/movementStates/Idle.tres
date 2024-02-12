@@ -6,6 +6,6 @@
 script = ExtResource("1_jftji")
 id = 1
 name = "Idle"
-camera_fov = 75.0
+camera_fov = 70.0
 movementSpeed = 0.0
 anmationSpeed = 1.0

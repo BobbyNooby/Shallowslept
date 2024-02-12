@@ -5,6 +5,7 @@ signal setCamRotation(camRotation : float)
 @onready var yawNode = $CameraYaw
 @onready var pitchNode = $CameraYaw/CameraPitch
 @onready var cameraSpringArm = $CameraYaw/CameraPitch/CameraSpringArm
+@onready var camera = $CameraYaw/CameraPitch/CameraSpringArm/Camera3D
 @export var player : CharacterBody3D
 
 var yaw : float = 0
@@ -22,14 +23,12 @@ var zoomAcceleration : int = 10
 var minZoomSpeed : int = 1
 
 var isShiftLocked : bool
+var tween : Tween
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	cameraSpringArm.add_excluded_object(player)
 
-func onSetShiftLock(shiftLockState : bool):
-	isShiftLocked = shiftLockState
-	
 func _input(event):
 	if event is InputEventMouseMotion:
 		if isShiftLocked or (!isShiftLocked and Input.is_action_pressed("RightClick")):
@@ -58,7 +57,7 @@ func _process(delta):
 	if isShiftLocked:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		maxCameraZ = shiftLockMaxCameraZ
-		cameraSpringArm.position.x = 2.4
+		cameraSpringArm.position.x = 1.5
 		cameraZ = clamp(cameraZ, minimumCameraZ, maxCameraZ)
 	else:
 		maxCameraZ = normalMaxCameraZ
@@ -68,8 +67,6 @@ func _process(delta):
 	yawNode.rotation_degrees.y = yaw
 	pitchNode.rotation_degrees.x = pitch
 	
-
-	
 	setCamRotation.emit(yawNode.rotation.y)
 	
 	if Input.is_action_just_released("ZoomIn"):
@@ -78,7 +75,18 @@ func _process(delta):
 	elif Input.is_action_just_released("ZoomOut"):
 		if cameraZ < maxCameraZ:
 			cameraZ += cameraSpeedFunc(cameraZ)
+			
+	
 	
 	cameraSpringArm.spring_length = lerp(cameraSpringArm.spring_length, cameraZ, delta * zoomAcceleration)
 
-
+func onSetShiftLock(shiftLockState : bool):
+	isShiftLocked = shiftLockState
+	
+func onSetMovementState(movementState : MovementState):
+	if tween:
+		tween.kill()
+	
+	tween = create_tween()
+	tween.tween_property(camera, "fov", movementState.camera_fov, 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	

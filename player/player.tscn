@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://b1dnjc4l21k0b"]
+[gd_scene load_steps=49 format=3 uid="uid://b1dnjc4l21k0b"]
 
 [ext_resource type="Script" path="res://player/scripts/Player.gd" id="1_7j80s"]
 [ext_resource type="Script" path="res://player/scripts/CameraController.gd" id="2_10dyf"]
@@ -13,6 +13,12 @@
 [ext_resource type="Resource" uid="uid://dgw67c4hoodgq" path="res://player/movementStates/Jump.tres" id="6_ksdc6"]
 [ext_resource type="Resource" uid="uid://dclg8nre7tt3q" path="res://player/movementStates/Roll.tres" id="6_ti7n5"]
 [ext_resource type="Resource" uid="uid://wfyj7jnpcrj2" path="res://player/movementStates/AirDash.tres" id="7_3rbuy"]
+[ext_resource type="Script" path="res://player/scripts/AudioController.gd" id="9_pncwb"]
+[ext_resource type="AudioStream" uid="uid://cxlq1d4fnqume" path="res://player/audio/steps_stone_1.mp3" id="15_bexjm"]
+[ext_resource type="AudioStream" uid="uid://bqc15e0xqpq0i" path="res://player/audio/steps_stone_2.mp3" id="16_syawx"]
+[ext_resource type="AudioStream" uid="uid://etcwrj18wl2k" path="res://player/audio/roll.mp3" id="17_3vnyk"]
+[ext_resource type="AudioStream" uid="uid://cptp1yfhxnf6b" path="res://player/audio/jump.mp3" id="18_c2817"]
+[ext_resource type="AudioStream" uid="uid://bv8dnjty1cikt" path="res://player/audio/airdash.mp3" id="19_d2osq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5cjpx"]
 resource_name = "BlockyTorso1Mtl.001"
@@ -783,6 +789,17 @@ cameraRoot = NodePath("../CameraRoot")
 cameraYaw = NodePath("../CameraRoot/CameraYaw")
 defaultJump = ExtResource("6_ksdc6")
 
+[node name="AudioController" type="Node" parent="." node_paths=PackedStringArray("player", "Step1", "Step2", "Jump", "AirDash", "Roll", "runStepDelay", "walkStepDelay")]
+script = ExtResource("9_pncwb")
+player = NodePath("..")
+Step1 = NodePath("../Audio/Movement/Step1")
+Step2 = NodePath("../Audio/Movement/Step2")
+Jump = NodePath("../Audio/Movement/Jump")
+AirDash = NodePath("../Audio/Movement/AirDash")
+Roll = NodePath("../Audio/Movement/Roll")
+runStepDelay = NodePath("../Audio/Timers/RunDelay")
+walkStepDelay = NodePath("../Audio/Timers/WalkDelay")
+
 [node name="AnimationController" type="Node" parent="." node_paths=PackedStringArray("animationTree", "player")]
 script = ExtResource("5_nemcm")
 animationTree = NodePath("../AnimationTree")
@@ -799,7 +816,7 @@ bones/0/name = "Torso"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, 0, 0, 0, 1, 5.96046e-08, 0, -5.96046e-08, 1, 0, 0, 0)
 bones/0/enabled = true
-bones/0/position = Vector3(0, -0.0434965, 0)
+bones/0/position = Vector3(0, -0.0395819, -7.21013e-09)
 bones/0/rotation = Quaternion(-2.98023e-08, 0, 0, 1)
 bones/0/scale = Vector3(1, 1, 1)
 bones/1/name = "Head"
@@ -820,7 +837,7 @@ bones/3/name = "Right Arm"
 bones/3/parent = 0
 bones/3/rest = Transform3D(0.235295, 0.242536, -0.941176, 0.058824, -0.970142, -0.235294, -0.970145, -2.6077e-07, -0.242535, 1, 2, -2.84217e-14)
 bones/3/enabled = true
-bones/3/position = Vector3(1.00203, 1.98478, 0.000523276)
+bones/3/position = Vector3(1.0023, 1.97702, 0.000593394)
 bones/3/rotation = Quaternion(0.7823, 0.0963057, -0.610801, 0.0751931)
 bones/3/scale = Vector3(1, 1, 1)
 bones/4/name = "Right Arm_end"
@@ -834,7 +851,7 @@ bones/5/name = "Left Arm"
 bones/5/parent = 0
 bones/5/rest = Transform3D(-0.235295, -0.242535, -0.941177, 0.0588234, -0.970143, 0.235294, -0.970145, 2.90573e-07, 0.242536, -1, 2, -2.84217e-14)
 bones/5/enabled = true
-bones/5/position = Vector3(-1, 1.99706, -3.55607e-08)
+bones/5/position = Vector3(-1, 1.99173, -4.29124e-08)
 bones/5/rotation = Quaternion(-0.610801, 0.0751931, 0.7823, 0.0963053)
 bones/5/scale = Vector3(1, 1, 1)
 bones/6/name = "Left Arm_end"
@@ -848,7 +865,7 @@ bones/7/name = "Right Leg"
 bones/7/parent = 0
 bones/7/rest = Transform3D(-1.19209e-07, 7.10543e-15, -1, -2.13163e-14, -1, -7.10542e-15, -1, 2.13163e-14, 1.78814e-07, 0.5, 0, 0)
 bones/7/enabled = true
-bones/7/position = Vector3(0.5, 0.0434965, -4.62432e-16)
+bones/7/position = Vector3(0.5, 0.0395819, 6.00923e-16)
 bones/7/rotation = Quaternion(-0.707107, 3.09086e-08, 0.707107, 3.09086e-08)
 bones/7/scale = Vector3(1, 1, 1)
 bones/8/name = "Left Leg_end"
@@ -862,7 +879,7 @@ bones/9/name = "Left Leg"
 bones/9/parent = 0
 bones/9/rest = Transform3D(-1.19209e-07, 7.10543e-15, -1, -2.13163e-14, -1, -7.10542e-15, -1, 2.13163e-14, 1.78814e-07, -0.5, 0, 0)
 bones/9/enabled = true
-bones/9/position = Vector3(-0.5, 0.0434965, -4.62432e-16)
+bones/9/position = Vector3(-0.5, 0.0395819, 6.00923e-16)
 bones/9/rotation = Quaternion(-0.707107, 3.09086e-08, 0.707107, 3.09086e-08)
 bones/9/scale = Vector3(1, 1, 1)
 bones/10/name = "Right Leg_end"
@@ -945,14 +962,51 @@ one_shot = true
 wait_time = 2.0
 one_shot = true
 
+[node name="Audio" type="Node" parent="."]
+
+[node name="Movement" type="Node" parent="Audio"]
+
+[node name="Step1" type="AudioStreamPlayer" parent="Audio/Movement"]
+stream = ExtResource("15_bexjm")
+max_polyphony = 3
+
+[node name="Step2" type="AudioStreamPlayer" parent="Audio/Movement"]
+stream = ExtResource("16_syawx")
+max_polyphony = 3
+
+[node name="Roll" type="AudioStreamPlayer" parent="Audio/Movement"]
+stream = ExtResource("17_3vnyk")
+
+[node name="Jump" type="AudioStreamPlayer" parent="Audio/Movement"]
+stream = ExtResource("18_c2817")
+
+[node name="AirDash" type="AudioStreamPlayer" parent="Audio/Movement"]
+stream = ExtResource("19_d2osq")
+
+[node name="Timers" type="Node" parent="Audio"]
+
+[node name="WalkDelay" type="Timer" parent="Audio/Timers"]
+wait_time = 0.41
+one_shot = true
+
+[node name="RunDelay" type="Timer" parent="Audio/Timers"]
+wait_time = 0.27
+one_shot = true
+
 [connection signal="setDashState" from="." to="MovementController" method="onSetDashState"]
 [connection signal="setDashState" from="." to="AnimationController" method="onSetDashState"]
+[connection signal="setDashState" from="." to="AudioController" method="onSetDashState"]
 [connection signal="setIdleState" from="." to="MovementController" method="onSetIdleState"]
 [connection signal="setJumpState" from="." to="MovementController" method="onSetJumpState"]
 [connection signal="setJumpState" from="." to="AnimationController" method="onSetJumpState"]
+[connection signal="setJumpState" from="." to="AudioController" method="onSetJumpState"]
 [connection signal="setMovementDirection" from="." to="MovementController" method="onSetMovementDirection"]
 [connection signal="setMovementState" from="." to="MovementController" method="onSetMovementState"]
 [connection signal="setMovementState" from="." to="AnimationController" method="onSetMovementState"]
+[connection signal="setMovementState" from="." to="CameraRoot" method="onSetMovementState"]
+[connection signal="setMovementState" from="." to="AudioController" method="onSetMovementState"]
 [connection signal="setShiftLock" from="." to="MovementController" method="onSetShiftLock"]
 [connection signal="setShiftLock" from="." to="CameraRoot" method="onSetShiftLock"]
+[connection signal="setSprintState" from="." to="AudioController" method="onSetSprintState"]
+[connection signal="setDodgeState" from="MovementController" to="AudioController" method="onSetDodgingState"]
 [connection signal="setCamRotation" from="CameraRoot" to="MovementController" method="onSetCamRotation"]

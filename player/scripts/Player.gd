@@ -1,6 +1,7 @@
 extends CharacterBody3D
 
 signal setIdleState(idleState : bool)
+signal setSprintState(sprintState : bool)
 signal setMovementState(movementState : MovementState)
 signal setJumpState(jumpState : JumpState)
 signal setDashState(dashState : DashState)
@@ -79,6 +80,7 @@ func _physics_process(delta):
 		isIdle = true
 		isSprinting = false
 	setIdleState.emit(isIdle)
+	setSprintState.emit(isSprinting)
 	
 		
 	if Input.is_action_pressed("Jump"):
