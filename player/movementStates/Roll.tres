@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="DashState" load_steps=2 format=3 uid="uid://dclg8nre7tt3q"]
+
+[ext_resource type="Script" path="res://player/scripts/utils/DashState.gd" id="1_nbu5j"]
+
+[resource]
+script = ExtResource("1_nbu5j")
+id = 5
+name = "Roll"
+boostAmount = 50.0
+boostDecayRate = 2.4
+stopYVelocity = false
+pauseYVelocity = false
+anmationSpeed = 1.0

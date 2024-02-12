@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MovementState" load_steps=2 format=3 uid="uid://c12pw4ig23k68"]
+
+[ext_resource type="Script" path="res://player/scripts/utils/MovementState.gd" id="1_ejtc5"]
+
+[resource]
+script = ExtResource("1_ejtc5")
+id = 3
+name = "Run"
+camera_fov = 90.0
+movementSpeed = 20.0
+anmationSpeed = 1.0

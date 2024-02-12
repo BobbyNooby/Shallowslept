@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MovementState" load_steps=2 format=3 uid="uid://gjjir0ib4a55"]
+
+[ext_resource type="Script" path="res://player/scripts/utils/MovementState.gd" id="1_jftji"]
+
+[resource]
+script = ExtResource("1_jftji")
+id = 1
+name = "Idle"
+camera_fov = 75.0
+movementSpeed = 0.0
+anmationSpeed = 1.0

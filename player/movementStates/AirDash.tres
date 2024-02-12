@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="DashState" load_steps=2 format=3 uid="uid://wfyj7jnpcrj2"]
+
+[ext_resource type="Script" path="res://player/scripts/utils/DashState.gd" id="1_t1v3k"]
+
+[resource]
+script = ExtResource("1_t1v3k")
+id = 5
+name = "AirDash"
+boostAmount = 50.0
+boostDecayRate = 2.4
+stopYVelocity = false
+pauseYVelocity = true
+anmationSpeed = 1.0

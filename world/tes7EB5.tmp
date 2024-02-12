@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://dobdyys5iw41l"]
+
+[ext_resource type="PackedScene" uid="uid://b1dnjc4l21k0b" path="res://player/player.tscn" id="1_1qbfd"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_p0nc7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ywt5y"]
+
+[sub_resource type="Sky" id="Sky_o203f"]
+
+[sub_resource type="Environment" id="Environment_myoc8"]
+background_mode = 1
+background_color = Color(0, 0.678431, 1, 1)
+sky = SubResource("Sky_o203f")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(50, 0, 0, 0, 1, 0, 0, 0, 50, 0, 0, 0)
+mesh = SubResource("BoxMesh_p0nc7")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(50, 0, 0, 0, 1, 0, 0, 0, 50, 0, 0, 0)
+shape = SubResource("BoxShape3D_ywt5y")
+
+[node name="Player" parent="." instance=ExtResource("1_1qbfd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.80045, 2.98888, 1.17795)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.3934, 7.59586, -11.9268)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_myoc8")
